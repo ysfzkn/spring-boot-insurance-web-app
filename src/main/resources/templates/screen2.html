@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Giriş Yap & Kayıt Ol</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+ <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<nav class="navbar navbar-light bg-light align-center">
+		<a class="navbar-brand" th:href="@{/}" >
+		  <img src="logosigorta.png" th:href="@{/}" th:src="@{/images/logosigorta.png}" width="125" height="75" class="d-inline-block align-top" alt="logosigorta">
+		</a>
+	</nav>
+
+    <div id="id01">
+    <form class="form1" th:action="@{/checkUser}" method="get">
+        <div class="container">
+        <h4 style="background-color:#FF6600; text-align: center;"><b>-GİRİŞ-</b></h4>
+
+        <h4 for="tc" style="background-color:#FF6600; text-align: center;"><b>TC. KİMLİK NO</b></h4>
+        <input type="text" th:name="identity" class="border border-dark" placeholder="Bu alana TC. kimlik girilecek" name="tc" required>
+
+        <h4 for="sifre" style="background-color:#FF6600; text-align: center;"><b>ŞİFRE</b></h4>
+        <input th:name="sifre" class="border border-dark" type="password" placeholder="Kullanıcının belirlediği şifre girilecek" name="sifre" required>
+
+        <button type="submit" class="btn1" style="display: inline-block;"><b>GİRİŞ</b></button>
+        </div>
+    </form>
+    </div>
+
+    <div id="id02">
+        <form class="form2" th:action="@{/saveUser}" method="get">
+        <div  class="container">
+            <h4 style="background-color:#FF6600; text-align: center;"><b>-KAYIT OL-</b></h4>
+            <h4 for="name" style="background-color:#FF6600; text-align: center;"><b>İSİM</b></h4>
+            <input th:name="name" class="border border-dark" type="text" placeholder="Kullanıcı bu alana ismini kimlik girecek" name="name" required>
+
+            <h4 for="surname" style="background-color:#FF6600; text-align: center;"><b>SOYİSİM</b></h4>
+            <input th:name="surname" class="border border-dark" type="text" placeholder="Kullanıcı bu alana soyismini girecek" name="surname" required>
+
+            <h4 for="tc" style="background-color:#FF6600; text-align: center;"><b>TC. KİMLİK NO</b></h4>
+            <input  th:name="identity" class="border border-dark" type="text" placeholder="Bu alana TC. kimlik girilecek" name="tc" required>
+
+        <h4 for="tel" style="background-color:#FF6600; text-align: center;"><b>TELEFON NUMARASI</b></h4>
+        <input  th:name="tel" class="border border-dark" type="text" placeholder="Kullanıcıya ait cep telefonu girilecek" name="tel" required>
+
+            <h4 for="sifre" style="background-color:#FF6600; text-align: center;"><b>ŞİFRE</b></h4>
+            <input  th:name="sifre" class="border border-dark" type="password" placeholder="Bu alana kullanıcının şifresi girilecek" name="sifre" required>
+            
+            <h4>
+            <input  class="border border-dark" type="checkbox" checked="checked" name="remember" style="margin-bottom:25px">KVKK'YI KABUL EDİYORUM
+            </h4>
+    
+            <button type="submit" class="btn2"><b>KAYIT</b></button>
+    
+        </div>
+        </form>
+    </div>
+
+		
+
+</body>
+</html>

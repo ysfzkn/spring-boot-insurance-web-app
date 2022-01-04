@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>TEKLİF FİYAT</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+ <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<nav class="navbar navbar-light bg-light align-center">
+		<a class="navbar-brand"  th:href="@{/}">
+		  <img src="logosigorta.png"  th:href="@{/}" th:src="@{/images/logosigorta.png}" width="125" height="75" class="d-inline-block align-top" alt="logosigorta">
+		</a>
+    <div class="align-right">
+      <h4 class="border border-dark" style="background-color:#FF6600; text-align: center;"><b>**YÖNETİCİ**</b></h4>
+    </div>
+    
+    	<a class="navbar-brand" th:href="@{/}">
+		  <h4 class="border border-dark" style="background-color:#FF6600; text-align: center"><b>ÇIKIŞ</b></h4>
+		</a>
+	</nav>
+
+    <div class="container">
+    
+      <div class="container">
+          <h4 class="border border-dark" style="background-color:#FF6600; text-align: center;"><b>BAŞVURU EKRANI</b></h4>
+      </div>
+       <form class="container" th:action="@{/screen4}" method="get">
+        <div class="container" id="table">
+         <div th:each="applications: ${applications}">
+               
+                
+                  <div class="row">
+                    <div class="container">
+                  	<a class="border border-dark mr-1" style="background-color:#FF6600;" th:text="'ID : ' + ${applications.id}"></a>
+                  	<a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'NAME : ' + ${applications.name}"></a>
+					<a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'SURNAME : ' + ${applications.surname}"></a>
+                    <a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'PLACE : ' + ${applications.place}"></a>
+                    <a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'START : ' + ${applications.start}"></a>
+                    <a class="border border-dark mr-1" style="background-color:#FF6600;" th:text="'END : ' + ${applications.end}"></a>
+                    <a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'IDENTITY : ' + ${applications.identity}"></a>
+                    <a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'MAIL : ' + ${applications.mail}"></a>
+                     </div>
+                    </div>
+           		</div>
+            </div>
+            <button class="btn btn-outline-secondary" style="background-color:#FF6600;" type="submit">GERİ</button>
+             </form>
+             
+     
+    </div>
+   
+		
+
+</body>
+</html>

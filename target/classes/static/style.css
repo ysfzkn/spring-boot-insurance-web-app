@@ -1,0 +1,76 @@
+
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+
+/* Set a style for all buttons */
+.btn1 {
+  position: absolute;
+  background-color:#FF6600;
+  color: black;
+  padding: 10px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 35%;
+  opacity: 0.9;
+  border: 1px solid black;
+  right: 5%;
+  top: 270px;
+}
+
+.btn2 {
+  position: absolute;
+  background-color:#FF6600;
+  color: black;
+  padding: 10px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 35%;
+  opacity: 0.9;
+  border: 1px solid black;
+  right: 5%;
+  top: 670px;
+}
+
+.container {
+  padding: 16px;
+  
+}
+
+.form1 {
+  position: absolute;
+  background-color: #fefefe;
+  margin: 5% auto 50% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid black;
+  width: 40%; /* Could be more or less, depending on screen size */
+  height: 55%;
+  left: 9%;
+}
+
+.form2 {
+    position: absolute;
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid black;
+    right: 11%;
+    width: 40%; /* Could be more or less, depending on screen size */
+    height: 118%;
+  }
+
+/* #psw{
+    position: inherit;
+    border: 1px solid black;
+    background-color: #FF6600;
+
+} */

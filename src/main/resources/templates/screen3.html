@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>TEKLİF</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+	
+</head>
+<body>
+
+	<nav class="navbar navbar-light bg-light align-center">
+		
+        <div class="ml-1">
+            <a class="navbar-brand" th:href="@{/}"  >
+		  <img src="logosigorta.png" th:href="@{/}"  th:src="@{/images/logosigorta.png}" width="125" height="75" class="d-inline-block align-top" alt="logosigorta">
+		</a>
+            <span class="font-weight-bold border border-dark text-center ml-1 align-center width=125 height=75" style="background-color:#FF6600;">
+                Aşağıdaki Formu Doldurun ve Seyahat Sigortası Fiyat Teklifi Alın! </span>
+        </div>
+
+	</nav>
+
+    <div class="border border-dark mr-5 ml-5" id="id1">
+        <form class="form2" th:action="@{/saveApplication}" method="get">
+        <div  class="container">
+            <h4 class=" mt-2 border border-dark " style="background-color:#FF6600; text-align: center;"><b>SEYAHAT TİPİNİ SEÇİNİZ</b></h4>
+            <div class="form-check">
+                <input class="form-check-input border border-dark" type="checkbox" value="1" id="defaultCheck1">
+                <label class="form-check-label mr-5" for="defaultCheck1">
+                  Yurt içi
+                </label>
+
+                <input class="form-check-input border border-dark" type="checkbox" value="0" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                  Yurt dışı
+                </label>
+              </div>
+           
+            <h4 class=" mt-2 border border-dark " style="background-color:#FF6600; text-align: center;"><b>SEYAHAT EDECEĞİNİZ ÜLKE VE BÖLGESİNİ GİRİNİZ</b></h4>
+            <h4 class=" mt-1 border border-dark" style="background-color:#FF6600; text-align: center;"><b>FRANSA - Paris vb.</b></h4>
+            <input th:name="place" class="border border-dark" type="text" placeholder="Yukarıdaki gibi bu alana ülke ve bölge girilmeli" name="ulke" required>
+
+            <div class="card-body font-weight-bold border border-dark mt-2 mb-2" style="background-color:#FF6600; text-align: center;">
+                <blockquote class="blockquote mb-0">
+                  <p>
+                      BİLGİLENDİRME: Sigorta kapsamına girebilmesi için syahat başlangıç tarihinizi
+                      seyahatinizden bir gün öncesi olacak; seyahat bitiş tarihinizi ise seyahatinizden
+                        bir gün sonra olacak şekilde seçmelisiniz.
+                  </p>
+                  
+                </blockquote>
+              </div>
+            
+            <h4 class=" mt-2 border border-dark" style="background-color:#FF6600; text-align: center;"><b>SEYAHAT BAŞLANGIÇ TARİHİNİ GİRİNİZ</b></h4>
+            <input th:name="start" class="border border-dark" type="date"  placeholder="17.11.2021 şeklinde gün.başlangıç girilmeli" name="start" required>
+
+            <h4 for="end" style="background-color:#FF6600; text-align: center;"><b>SEYAHAT BİTİŞ TARİHİNİ GİRİNİZ</b></h4>
+            <input th:name="end" class="border border-dark" type="date" placeholder="17.11.2021 şeklinde gün.bitiş girilmeli" name="end" required>
+
+            <h4 for="isim" style="background-color:#FF6600; text-align: center;"><b>İSİM</b></h4>
+            <input th:name="name" class="border border-dark" type="text" placeholder="Kullanıcı bu alana ismini kimlik girecek" name="isim" required>
+
+            <h4 for="soyisim" style="background-color:#FF6600; text-align: center;"><b>SOYİSİM</b></h4>
+            <input th:name="surname" class="border border-dark" type="text" placeholder="Kullanıcı bu alana soyismini girecek" name="soyisim" required>
+
+            <h4 for="tc" style="background-color:#FF6600; text-align: center;"><b>TC. KİMLİK NO</b></h4>
+            <input th:name="identity" minlength="11" maxlength="11" type="text" class="border border-dark" placeholder="Bu alana TC. kimlik girilecek" id="number" name="identity" autofocus required>
+
+	        <h4 for="tel" style="background-color:#FF6600; text-align: center;"><b>TELEFON NUMARASI</b></h4>
+	        <input th:name="tel" minlength="11" maxlength="11" type="text" id="number1"  class="border border-dark" placeholder="Kullanıcıya ait cep telefonu girilecek" name="tel" autofocus required>
+
+            <h4 for="mail" style="background-color:#FF6600; text-align: center;"><b>EMAİL</b></h4>
+            <input th:name="mail" type="text" placeholder="user@user.com" class="border border-dark" name="email" required>
+            
+           
+    
+            <div class="row">
+              <h4 class="col-10">
+                <input class="border border-dark" type="checkbox" checked="checked" name="remember" style="margin-bottom:25px">KVKK'YI KABUL EDİYORUM
+                </h4>
+                <div class="col-2">
+                    <button type="submit" class="btn2" ><b>TEKLİF AL</b></button>
+                </div>
+              
+            </div>
+    
+        </div>
+                 
+      </form>
+    </div>
+    
+    <script>
+		
+		   var input = document.getElementById('number');
+		   
+			input.onkeyup = input.onchange = enforceFloat;
+			
+			//enforce that only a float can be inputed
+			function enforceFloat() {
+			  var valid = /^\-?\d+\.\d*$|^\-?[\d]*$/;
+			  var number = /\-\d+\.\d*|\-[\d]*|[\d]+\.[\d]*|[\d]+/;
+			  if (!valid.test(this.value)) {
+			    var n = this.value.match(number);
+			    this.value = n ? n[0] : '';
+			  }
+			}
+		
+	 </script>
+	 <script>
+		
+		   var input = document.getElementById('number1');
+		   
+			input.onkeyup = input.onchange = enforceFloat;
+			
+			//enforce that only a float can be inputed
+			function enforceFloat() {
+			  var valid = /^\-?\d+\.\d*$|^\-?[\d]*$/;
+			  var number = /\-\d+\.\d*|\-[\d]*|[\d]+\.[\d]*|[\d]+/;
+			  if (!valid.test(this.value)) {
+			    var n = this.value.match(number);
+			    this.value = n ? n[0] : '';
+			  }
+			}
+		
+	 </script>
+	
+
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box;}
+        
+        
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+          width: 100%;
+          padding: 15px;
+          margin: 5px 0 22px 0;
+          display: inline-block;
+          border: none;
+          background: #f1f1f1;
+        }
+        
+        .btn2 {
+          position: absolute;
+          background-color:#FF6600;
+          color: black;
+        }
+        
+        </style>
+	
+</body>
+</html>
