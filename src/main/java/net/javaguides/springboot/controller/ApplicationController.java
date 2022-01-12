@@ -43,6 +43,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Iterator;
 
 @Controller
 public class ApplicationController {
@@ -185,7 +186,7 @@ public class ApplicationController {
 		}
 		
 		
-		return "screen4";
+		return "redirect:screen4";
 	}
 	
 	@GetMapping(value = "/showApp/{id}")
@@ -195,11 +196,31 @@ public class ApplicationController {
 	        List<Application> listApplications = applicationRepository.findAll();
 	        int idd =Integer.parseInt(id);  
 	        System.out.println(idd);
+	        
+	        Application app = findUsingIterator(id, listApplications);
+	        
 	        model.addAttribute("id", idd);
-	        model.addAttribute("applications", listApplications);
+	        //model.addAttribute("applications", listApplications);
+	        model.addAttribute("applications", app);
 	        return "showApp";
 	}
 	
+	public Application findUsingIterator(String id, List<Application> applications) 
+	{
+	    Iterator<Application> iterator = applications.iterator();
+	    while (iterator.hasNext()) {
+	        Application application = iterator.next();
+	        
+	        String idd =Long.toString( application.getId());
+	        
+	        if (idd.equals(id)) {
+	        	System.out.println(application);
+	            return application;
+	        }
+	    }
+	    
+	    return null;
+	}
 	@GetMapping("/screen3")
 	public String screen3() 
 	{
@@ -221,7 +242,9 @@ public class ApplicationController {
 		
 		List<Application> listApplications = applicationRepository.findAll();
 		
+		System.out.println("liste");
 		System.out.println(listApplications);
+		
 		
 		model.addAttribute("applications",listApplications);
 		

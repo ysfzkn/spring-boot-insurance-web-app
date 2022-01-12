@@ -30,32 +30,35 @@
       <div class="container">
           <h4 class="border border-dark" style="background-color:#FF6600; text-align: center;"><b>BAŞVURU EKRANI</b></h4>
       </div>
-       <form class="container" th:action="@{/screen4}" method="get">
-        <div class="container" id="table">
-         <div th:each="applications: ${applications}">
-               
-                
-                  <div class="row">
-                    <div class="container">
-                  	<a class="border border-dark mr-1" style="background-color:#FF6600;" th:text="'ID : ' + ${applications.id}"></a>
-                  	<a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'NAME : ' + ${applications.name}"></a>
-					<a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'SURNAME : ' + ${applications.surname}"></a>
-                    <a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'PLACE : ' + ${applications.place}"></a>
-                    <a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'START : ' + ${applications.start}"></a>
-                    <a class="border border-dark mr-1" style="background-color:#FF6600;" th:text="'END : ' + ${applications.end}"></a>
-                    <a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'IDENTITY : ' + ${applications.identity}"></a>
-                    <a class="border border-dark mr-1"  style="background-color:#FF6600;" th:text="'MAIL : ' + ${applications.mail}"></a>
-                     </div>
-                    </div>
-           		</div>
-            </div>
-            <button class="btn btn-outline-secondary" style="background-color:#FF6600;" type="submit">GERİ</button>
-             </form>
-             
-     
-    </div>
-   
+       
+    <div class="container">
+	   <table class="table table-striped">
+	    <thead>
+	        <tr>
+	        	<th scope="col"> ID </th>
+	            <th scope="col"> Name </th>
+	            <th scope="col"> Surname </th>
+	            <th scope="col"> Place </th>
+	            <th scope="col"> Start </th>
+	            <th scope="col"> End </th>
+	            <th scope="col"> Identity </th>
+	            <th scope="col"> Mail </th>
+	        </tr>
+	    </thead>
+	    <tbody>
 		
-
+	        <tr th:each="applications: ${applications}">
+	        	<th scope="row" th:text="${applications.id}"></th>
+	            <td><span th:text="${applications.name}"> Name </span></td>
+	            <td><span th:text="${applications.surname}"> Surname </span></td>
+	            <td><span th:text="${applications.place}"> Place </span></td>
+	            <td><span th:text="${applications.start}"> Start </span></td>
+	            <td><span th:text="${applications.end}"> End </span></td>
+	            <td><span th:text="${applications.identity}"> Identity </span></td>
+	            <td><span th:text="${applications.mail}"> Mail </span></td>
+	        </tr>
+	    </tbody>
+	</table>
+	</div>
 </body>
 </html>
