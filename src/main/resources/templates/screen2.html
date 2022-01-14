@@ -10,6 +10,54 @@
 	crossorigin="anonymous">
  <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
+ <script type="text/javascript">
+
+        function formkontrol(){
+
+            sifre= document.getElementById('password').value;
+
+            var hata= new Array();
+            var sembol = '*|,:<>[]{}`;()@&$#%!+-"/';
+
+            var sembolvar=false;
+            for (var i = 0; i < sifre.length; i++) {
+                if (sembol.indexOf(sifre.charAt(i))!=-1){
+                    sembolvar=true;
+                }
+                }
+    
+
+            
+
+            if (sifre=='')
+                hata.push('Şifre alanını boş geçmeyiniz');
+            else{
+                if (sifre.length<8)
+                    hata.push('Şifre 8 karekter veya daha büyük olmalıdır.');
+
+                else if (sifre.search(/[a-z]/) < 0)
+                        hata.push("Şifre en az bir Küçük harf içermelidir.");
+
+                   else if (sifre.search(/[A-Z]/) < 0)
+                        hata.push("Şifre en az bir Büyük harf içermelidir.");
+
+                else if (sifre.search(/[0-9]/) < 0)
+                    hata.push("Şifre en az bir rakam içermelidir.");
+
+                else if (sembolvar==false)
+                    hata.push("Şifre en az bir sembol içermelidir.");
+
+                
+            }
+
+         if (hata.length > 0) {
+                    alert(hata.join("\n"));
+                    return false;
+        }
+           
+
+        }
+    </script>
 <body>
 
 	<nav class="navbar navbar-light bg-light align-center">
@@ -47,14 +95,14 @@
             <h4 for="tc" style="background-color:#FF6600; text-align: center;"><b>TC. KİMLİK NO</b></h4>
             <input id="number1" minlength="11" maxlength="11" th:name="identity" class="border border-dark" type="text" placeholder="Bu alana TC. kimlik girilecek" name="tc" required>
 
-        <h4 for="tel" style="background-color:#FF6600; text-align: center;"><b>TELEFON NUMARASI</b></h4>
-        <input id="number2" minlength="11" maxlength="11" th:name="tel" class="border border-dark" type="text" placeholder="Kullanıcıya ait cep telefonu girilecek" name="tel" required>
+	        <h4 for="tel" style="background-color:#FF6600; text-align: center;"><b>TELEFON NUMARASI</b></h4>
+	        <input id="number2" minlength="11" maxlength="11" th:name="tel" class="border border-dark" type="text" placeholder="Kullanıcıya ait cep telefonu girilecek" name="tel" required>
 
             <h4 for="sifre" style="background-color:#FF6600; text-align: center;"><b>ŞİFRE</b></h4>
-            <input  th:name="sifre" class="border border-dark" type="password" placeholder="Bu alana kullanıcının şifresi girilecek" name="sifre" required>
+            <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="En az 1 rakam, 1 özel karakter, 1 büyük 1 küçük harf içermelidir. Ve en az 8 karakter olmalıdır !" id="password" th:name="sifre" class="border border-dark" type="password" placeholder="Bu alana kullanıcının şifresi girilecek" name="sifre" th:required="required" required>
             
             <h4>
-            <input  class="border border-dark" type="checkbox" checked="checked" name="remember" style="margin-bottom:25px">KVKK'YI KABUL EDİYORUM
+            <input class="border border-dark" type="checkbox" checked="checked" name="remember" style="margin-bottom:25px">KVKK'YI KABUL EDİYORUM
             </h4>
     
             <button type="submit" class="btn2"><b>KAYIT</b></button>
@@ -62,6 +110,8 @@
         </div>
         </form>
     </div>
+   
+    
 	 <script>
 		
 		   var input = document.getElementById('number');
