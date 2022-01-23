@@ -151,24 +151,34 @@ public class ApplicationController {
 	@GetMapping("/screen5/{id}")
 	public String screen5(@PathVariable String id, Model model) 
 	{
-		List<Application> listApplications = applicationRepository.findAll();
+		try 
+		{
+			List<Application> listApplications = applicationRepository.findAll();
+			
+			//System.out.println(listApplications);
+			
+			List<Application> newlist = findByIdentity(listApplications, id);
+			Application user = newlist.get(0);
+			
+			String username = user.getName();
+			String surname = user.getSurname();
+			
+			String fullname = username + " " + surname ;
+			
+			System.out.println(fullname);
+			System.out.println(newlist);
+			
+			model.addAttribute("username", fullname);
+			model.addAttribute("applications",newlist);
+		} 
+		catch (Exception e) 
+		{
+			String fullname = "Lütfen Önce Teklif Alınız ->";
+			List<Application> newlist = new ArrayList<Application>();
+			model.addAttribute("username", fullname);
+			model.addAttribute("applications",newlist);
+		}
 		
-		System.out.println("liste");
-		//System.out.println(listApplications);
-		
-		List<Application> newlist = findByIdentity(listApplications, id);
-		Application user = newlist.get(0);
-		
-		String username = user.getName();
-		String surname = user.getSurname();
-		
-		String fullname = username + " " + surname ;
-		
-		System.out.println(fullname);
-		System.out.println(newlist);
-		
-		model.addAttribute("username", fullname);
-		model.addAttribute("applications",newlist);
 			
 		return "screen5";		
 	}
