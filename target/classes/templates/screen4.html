@@ -33,17 +33,22 @@
         
         <div class="container" id="table">
          <div th:each="applications: ${applications}">
+                
                 <div class="container">
+                <form th:action="@{'/screen4/'+ ${applications.id}}">
                   <div class="row">
                     <div class="col-md-4">
-                      <a class="border border-dark" style="background-color:#FF6600;" th:href="@{'/showApp/'+ ${applications.id}}" th:text="'Başvuru Id : ' + ${applications.id} + '-'+ ${applications.name}"><b></b></a>
+                      <a class="tag" th:href="@{'/showApp/'+ ${applications.id}}" th:text="'Başvuru Id : ' + ${applications.id} + '-'+ ${applications.name}" target="_blank" rel="noopener noreferrer"><b></b></a>
                     </div>
+                   
+                    
                     <div class="col-md-8 input-group mb-3">
-                      <input th:name ="offer" type="text" class="form-control border border-dark mr-1" placeholder="Fiyat Giriniz" aria-label="Fiyat Giriniz" aria-describedby="basic-addon2">
+                      <input th:name ="offer" type="text" class="form-control border border-dark mr-1" placeholder="Fiyat Giriniz" aria-label="Fiyat Giriniz" aria-describedby="basic-addon2" required>
                      <div class="input-group-append">
-                        <a th:href="@{'/saveOffer/'+ ${applications.id} +'/'+ ${offer}}" class="btn btn-outline-secondary" type="submit" style="background-color:#FF6600;">Gönder</a>
+                        <button id="submit" class="btn btn-outline-secondary" type="submit" style="color:#ffffff;background-color:#FF6600;">Gönder</button>
                      </div>
                     </div>
+                    </form>
                   </div>
                  </div>
            </div>
@@ -52,6 +57,15 @@
       
     </div>
 		
+		<script type="text/javascript">
+		
+			submit.onclick = function()
+			{
+				element = document.querySelector('holderClass');
+				element.style.display = 'none'; 
+			}
+
+		</script>
 
 </body>
 </html>

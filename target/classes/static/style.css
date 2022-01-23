@@ -13,6 +13,19 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
 }
 
+.tag {
+  background:#FF6600;
+  color:#ffffff;
+  font-size:15px;
+  padding:8px 12px;
+  border-radius:3px;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  text-decoration:none;
+  
+  display: block; /* Added */
+}
+
 
 /* Set a style for all buttons */
 .btn1 {

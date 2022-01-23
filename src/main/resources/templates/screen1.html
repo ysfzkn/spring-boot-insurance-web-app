@@ -8,7 +8,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-	
+ <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
 
@@ -20,9 +20,7 @@
 			<form th:action="@{/screen6}" class="form-inline">
 				<button class="btn btn-outline float-right mr-2 font-weight-bold" type="submit" style="background-color:#FF6600;">Bilgilendirme</button>
 			</form>
-			<form th:action="@{/showCases}" class="form-inline">
-				<button class="btn btn-outline float-right mr-2 font-weight-bold" type="submit" style="background-color:#FF6600;">Dünya Vaka Sayısı Haritası</button>
-			</form>
+		
 			<form th:action="@{/screen2}" class="form-inline">
 				<button class="btn btn-outline float-end font-weight-bold" type="submit" style="background-color:#FF6600;">Giriş Yap & Üye Ol</button>
 			</form>
@@ -43,7 +41,12 @@
 		  </blockquote>
 		</div>
 	  </div>
-
+		
+		<form th:action="@{/showCases}" class="form-inline">
+			<button class="btn btn-primary btn-lg ml-5 mb-3 mr-2 font-weight-bold" type="submit" style="color:black;background-color:#FF6600;">Seyahatinizden önce gitmek istediğiniz ülkedeki genel aşı olma yüzdesi hakkında bilgi edinin</button>
+			
+		</form>
+			
 	  <div class="card ml-5 border border-dark" style="width:20rem; ">
 		<div class="card-header text-center font-weight-bold border border-dark" style="background-color:#FF6600;">
 		  BİZİMLE İLETİŞİME GEÇİN

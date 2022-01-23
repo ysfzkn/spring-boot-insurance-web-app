@@ -74,14 +74,14 @@
 	        <input th:name="tel" minlength="11" maxlength="11" type="text" id="number1"  class="border border-dark" placeholder="Kullanıcıya ait cep telefonu girilecek" name="tel" autofocus required>
 
             <h4 for="mail" style="background-color:#FF6600; text-align: center;"><b>EMAİL</b></h4>
-            <input th:name="mail" type="text" placeholder="user@user.com" class="border border-dark" name="email" required>
+            <input th:name="mail" type="email" placeholder="user@user.com" class="border border-dark" name="email" required>
             
-           
+           	
     
             <div class="row">
               <h4 class="col-10">
-                <input class="border border-dark" type="checkbox" checked="checked" name="remember" style="margin-bottom:25px">KVKK'YI KABUL EDİYORUM
-                </h4>
+            <input class="border border-dark" type="checkbox" name="remember" style="margin-bottom:25px" required>KVKK'YI KABUL EDİYORUM
+            </h4>
                 <div class="col-2">
                     <button type="submit" class="btn2" ><b>TEKLİF AL</b></button>
                 </div>

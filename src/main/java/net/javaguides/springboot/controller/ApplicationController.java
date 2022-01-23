@@ -53,7 +53,7 @@ public class ApplicationController {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
+	int id;
 	
 	// display list of Applications
 	
@@ -67,29 +67,7 @@ public class ApplicationController {
 	        return modelAndView;
 	    }  
 	
-	@GetMapping("/checkUser") 
-	public String checkUser(@RequestParam(name="identity", required = false) String identity,
-			@RequestParam(name="sifre", required = false) String sifre,
-			Model model) 
-	{
-		
-		String sql = "SELECT `sifre` FROM `user`.`user` WHERE `identity`='" + identity + "';";
-		
-		String sifre1 = (String) jdbcTemplate.queryForObject(sql, String.class);
-		
-		System.out.println(sifre1);
-		System.out.println(sifre);
-		System.out.println(sifre.equals(sifre1));
-		
-		if(sifre.equals(sifre1))
-		{
-			return "screen3";
-		}
-		else 
-		{
-			return "screen2";
-		}
-	}
+
 	
 	@GetMapping("/count") 
 	public String count(@RequestParam(name="ulke", required = false) String ulke,
@@ -119,23 +97,106 @@ public class ApplicationController {
 		return "screen2";
 	}
 	
-	@GetMapping(value = "/saveOffer/{id}/{offer}") 
+
+	
+	@GetMapping(value ="/screen4/{id}")
 	public String saveUser(@PathVariable String id,
-			@PathVariable String offer,
+			@RequestParam(name="offer", required = true) String offer,
+			Model model) 
+	{
+		try
+		{
+			//UPDATE `user`.`application` SET `offer` = '12' WHERE (`id` = '5');
+			System.out.println(offer);
+			String sql = "UPDATE `user`.`application` SET `offer` = '"+ offer +"' WHERE (`id` = '"+id+"');";
+		
+		
+			jdbcTemplate.update(sql);
+			//Application app = new Application();
+			System.out.println(id);
+			
+			return "redirect:/screen4";
+		}
+		catch(Exception e)
+		{
+			return "redirect:/screen4";
+		}
+	
+	}
+	
+	@GetMapping("/checkUser") 
+	public String checkUser(@RequestParam(name="identity", required = false) String identity,
+			@RequestParam(name="sifre", required = false) String sifre,
 			Model model) 
 	{
 		
-		//UPDATE `user`.`application` SET `offer` = '12' WHERE (`id` = '5');
-		/*System.out.println(offer);
-		String sql = "UPDATE `user`.`application` SET '"+ offer +"' = '12' WHERE (`id` = '"+id+"');";
-	
-		jdbcTemplate.update(sql);*/
-		Application app = new Application();
+		String sql = "SELECT `sifre` FROM `user`.`user` WHERE `identity`='" + identity + "';";
 		
-		return "screen4";
+		String sifre1 = (String) jdbcTemplate.queryForObject(sql, String.class);
+		
+		System.out.println(sifre1);
+		System.out.println(sifre);
+		System.out.println(sifre.equals(sifre1));
+		
+		if(sifre.equals(sifre1))
+		{
+			return "redirect:screen5/"+identity+"";
+		}
+		else 
+		{
+			return "screen2";
+		}
 	}
 	
+	@GetMapping("/screen5/{id}")
+	public String screen5(@PathVariable String id, Model model) 
+	{
+		List<Application> listApplications = applicationRepository.findAll();
+		
+		System.out.println("liste");
+		//System.out.println(listApplications);
+		
+		List<Application> newlist = findByIdentity(listApplications, id);
+		Application user = newlist.get(0);
+		
+		String username = user.getName();
+		String surname = user.getSurname();
+		
+		String fullname = username + " " + surname ;
+		
+		System.out.println(fullname);
+		System.out.println(newlist);
+		
+		model.addAttribute("username", fullname);
+		model.addAttribute("applications",newlist);
+			
+		return "screen5";		
+	}
 	
+
+	public List<Application> findByIdentity(List<Application> applications, String identity)
+	{
+		 Iterator<Application> iterator = applications.iterator();
+		 List<Application> list = new ArrayList<Application>();
+		 
+		 
+		    while (iterator.hasNext()) 
+		    {
+		        Application application = iterator.next();
+		        
+		        String id =application.getIdentity();
+		        //System.out.println(id);
+		        
+		        if (id.equals(identity)) 
+		        {
+		        	//System.out.println(application);
+		        	
+		            list.add(application);
+		        }
+		    }
+		    return list;
+		
+	}
 
 			
 	@GetMapping("/saveApplication") 
@@ -205,6 +266,7 @@ public class ApplicationController {
 	        return "showApp";
 	}
 	
+	
 	public Application findUsingIterator(String id, List<Application> applications) 
 	{
 	    Iterator<Application> iterator = applications.iterator();
@@ -221,6 +283,30 @@ public class ApplicationController {
 	    
 	    return null;
 	}
+	
+	public List<Application> findHaventOffer(List<Application> applications)
+	{
+		 Iterator<Application> iterator = applications.iterator();
+		 List<Application> listoff = new ArrayList<Application>();
+		 
+		 
+		    while (iterator.hasNext()) 
+		    {
+		        Application application = iterator.next();
+		        
+		        String off =application.getOffer();
+		        System.out.println(off);
+		        if (off == null) 
+		        {
+		        	System.out.println(application);
+		        	
+		            listoff.add(application);
+		        }
+		    }
+		    return listoff;
+		
+	}
+	
 	@GetMapping("/screen3")
 	public String screen3() 
 	{
@@ -245,8 +331,11 @@ public class ApplicationController {
 		System.out.println("liste");
 		System.out.println(listApplications);
 		
+		List<Application> newlist = findHaventOffer(listApplications);
 		
-		model.addAttribute("applications",listApplications);
+		System.out.println(newlist);
+		
+		model.addAttribute("applications",newlist);
 		
 		return "screen4";		
 	}
@@ -257,10 +346,7 @@ public class ApplicationController {
 		return "screen2";		
 	}
 	
-	@GetMapping("/screen5")
-	public String screen5(Model model) {
-		return "screen5";		
-	}
+
 	
 	@GetMapping("/screen6")
 	public String screen6(Model model) {
