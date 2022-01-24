@@ -1,0 +1,5 @@
+net\javaguides\springboot\controller\ApplicationController.class
+net\javaguides\springboot\model\Application.class
+net\javaguides\springboot\repository\ApplicationRepository.class
+net\javaguides\springboot\InsuranceApplication.class
+net\javaguides\springboot\model\ApplicationRowMapper.class

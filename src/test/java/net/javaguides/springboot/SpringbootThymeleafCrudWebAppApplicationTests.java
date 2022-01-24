@@ -8,6 +8,7 @@ class SpringbootThymeleafCrudWebAppApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("test");
 	}
 
 }

@@ -1,53 +1,36 @@
 package net.javaguides.springboot.controller;
 
-import java.net.http.HttpClient.Redirect;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.View;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.view.RedirectView;
 
 import net.javaguides.springboot.model.Application;
 import net.javaguides.springboot.repository.ApplicationRepository;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 import java.util.Iterator;
+
+
 
 @Controller
 public class ApplicationController {
-
+	
+	private static final String APP = "applications";
+	private static final String S2 = "screen2";
+	private static final String S4 = "redirect:/screen4";
+	private static final String S5 = "redirect:screen5/";
+	
+	
     @Autowired
     ApplicationRepository applicationRepository;
 	
@@ -57,7 +40,7 @@ public class ApplicationController {
 	
 	// display list of Applications
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="/" ,method = RequestMethod.GET)
 	 public ModelAndView screen1(Model model) 
 	 {		
 	        ModelAndView modelAndView = new ModelAndView();
@@ -88,20 +71,19 @@ public class ApplicationController {
 	{
 		try
 		{
-			//UPDATE `user`.`application` SET `offer` = '12' WHERE (`id` = '5');
+			
 			System.out.println(offer);
 			String sql = "UPDATE `user`.`application` SET `offer` = '"+ offer +"' WHERE (`id` = '"+id+"');";
 		
 		
 			jdbcTemplate.update(sql);
-			//Application app = new Application();
 			System.out.println(id);
 			
-			return "redirect:/screen4";
+			return S4;
 		}
 		catch(Exception e)
 		{
-			return "redirect:/screen4";
+			return "error";
 		}
 	
 	}
@@ -119,7 +101,7 @@ public class ApplicationController {
 		
 		jdbcTemplate.update(sql,name, surname,identity,tel,sifre,perm);
 		
-		return "redirect:screen5/"+identity+"";
+		return S5+identity+"";
 	}
 	
 	@GetMapping("/checkUser") 
@@ -127,23 +109,49 @@ public class ApplicationController {
 			@RequestParam(name="sifre", required = false) String sifre,
 			Model model) 
 	{
+	
 		
-		String sql = "SELECT `sifre` FROM `user`.`user` WHERE `identity`='" + identity + "';";
-		
-		String sifre1 = (String) jdbcTemplate.queryForObject(sql, String.class);
-		
-		System.out.println(sifre1);
-		System.out.println(sifre);
-		System.out.println(sifre.equals(sifre1));
-		
-		if(sifre.equals(sifre1))
+		try 
 		{
-			return "redirect:screen5/"+identity+"";
-		}
-		else 
+			String sql = "SELECT `sifre` FROM `user`.`user` WHERE `identity`='" + identity + "';";
+			
+			String sql1 = "SELECT `perm` FROM `user`.`user` WHERE `identity`='" + identity + "';";
+			
+			String perm = jdbcTemplate.queryForObject(sql1, String.class);
+			
+			String sifre1 = jdbcTemplate.queryForObject(sql, String.class);
+			
+			System.out.println(sifre1);
+			System.out.println(sifre);
+			System.out.println(sifre.equals(sifre1));
+			
+			if(sifre.equals(sifre1))
+			{
+				if(perm == null)
+				{
+					return "redirect:/error2";
+				}
+				else if(perm.equals("1"))
+				{
+					return S4;
+				}
+				else
+				{
+					return S5+identity+"";
+				}
+				
+			}
+			else 
+			{
+				return S2;
+			}
+			
+		} 
+		catch (Exception e) 
 		{
-			return "screen2";
+			return S2;
 		}
+		
 	}
 	
 	@GetMapping("/screen5/{id}")
@@ -153,7 +161,6 @@ public class ApplicationController {
 		{
 			List<Application> listApplications = applicationRepository.findAll();
 			
-			//System.out.println(listApplications);
 			
 			List<Application> newlist = findByIdentity(listApplications, id);
 			Application user = newlist.get(0);
@@ -167,14 +174,14 @@ public class ApplicationController {
 			System.out.println(newlist);
 			
 			model.addAttribute("username", fullname);
-			model.addAttribute("applications",newlist);
+			model.addAttribute(APP,newlist);
 		} 
 		catch (Exception e) 
 		{
 			String fullname = "Lütfen Önce Teklif Alınız ->";
-			List<Application> newlist = new ArrayList<Application>();
+			List<Application> newlist = new ArrayList<>();
 			model.addAttribute("username", fullname);
-			model.addAttribute("applications",newlist);
+			model.addAttribute(APP,newlist);
 		}
 		
 			
@@ -185,7 +192,7 @@ public class ApplicationController {
 	public List<Application> findByIdentity(List<Application> applications, String identity)
 	{
 		 Iterator<Application> iterator = applications.iterator();
-		 List<Application> list = new ArrayList<Application>();
+		 List<Application> list = new ArrayList<>();
 		 
 		 
 		    while (iterator.hasNext()) 
@@ -193,12 +200,10 @@ public class ApplicationController {
 		        Application application = iterator.next();
 		        
 		        String id =application.getIdentity();
-		        //System.out.println(id);
+		       
 		        
 		        if (id.equals(identity)) 
-		        {
-		        	//System.out.println(application);
-		        	
+		        {		        	
 		            list.add(application);
 		        }
 		    }
@@ -226,7 +231,7 @@ public class ApplicationController {
 			String sql1 = "SELECT `iduser` FROM `user`.`user` WHERE `identity`='" + identity + "';";
 			
 			
-			id = (String) jdbcTemplate.queryForObject(
+			id =  jdbcTemplate.queryForObject(
 			            sql1, String.class);
 		}
 		catch (Exception e) 
@@ -255,7 +260,7 @@ public class ApplicationController {
 		}
 		
 		
-		return "redirect:screen4";
+		return S5+identity+"";
 	}
 	
 	@GetMapping(value = "/showApp/{id}")
@@ -269,8 +274,8 @@ public class ApplicationController {
 	        Application app = findUsingIterator(id, listApplications);
 	        
 	        model.addAttribute("id", idd);
-	        //model.addAttribute("applications", listApplications);
-	        model.addAttribute("applications", app);
+	        
+	        model.addAttribute(APP, app);
 	        return "showApp";
 	}
 	
@@ -295,7 +300,7 @@ public class ApplicationController {
 	public List<Application> findHaventOffer(List<Application> applications)
 	{
 		 Iterator<Application> iterator = applications.iterator();
-		 List<Application> listoff = new ArrayList<Application>();
+		 List<Application> listoff = new ArrayList<>();
 		 
 		 
 		    while (iterator.hasNext()) 
@@ -343,7 +348,7 @@ public class ApplicationController {
 		
 		System.out.println(newlist);
 		
-		model.addAttribute("applications",newlist);
+		model.addAttribute(APP,newlist);
 		
 		return "screen4";		
 	}
@@ -351,7 +356,7 @@ public class ApplicationController {
 	@GetMapping("/screen2")
 	public String screen2(Model model) 
 	{
-		return "screen2";		
+		return S2;		
 	}
 	
 

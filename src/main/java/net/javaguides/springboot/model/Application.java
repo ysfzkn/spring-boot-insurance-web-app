@@ -1,8 +1,5 @@
 package net.javaguides.springboot.model;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
