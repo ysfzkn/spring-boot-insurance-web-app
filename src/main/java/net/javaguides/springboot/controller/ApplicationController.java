@@ -80,24 +80,6 @@ public class ApplicationController {
     
 	    return "showCases";
 	}
-    
-	@GetMapping("/saveUser") 
-	public String saveUser(@RequestParam(name="name", required = false) String name,
-			@RequestParam(name="surname", required = false) String surname,
-			@RequestParam(name="identity", required = false) String identity,
-			@RequestParam(name="tel", required = false) String tel,
-			@RequestParam(name="sifre", required = false) String sifre,
-			Model model) 
-	{
-		String perm = "0";
-		String sql = "INSERT INTO `user`.`user` (`name`, `surname`,`identity`,`tel`,`sifre`,`perm`) VALUES ( ?, ?, ?,  ?, ?, ?)";
-		
-		jdbcTemplate.update(sql,name, surname,identity,tel,sifre,perm);
-		
-		return "screen2";
-	}
-	
-
 	
 	@GetMapping(value ="/screen4/{id}")
 	public String saveUser(@PathVariable String id,
@@ -122,6 +104,22 @@ public class ApplicationController {
 			return "redirect:/screen4";
 		}
 	
+	}
+	
+	@GetMapping("/saveUser") 
+	public String saveUser(@RequestParam(name="name", required = false) String name,
+			@RequestParam(name="surname", required = false) String surname,
+			@RequestParam(name="identity", required = false) String identity,
+			@RequestParam(name="tel", required = false) String tel,
+			@RequestParam(name="sifre", required = false) String sifre,
+			Model model) 
+	{
+		String perm = "0";
+		String sql = "INSERT INTO `user`.`user` (`name`, `surname`,`identity`,`tel`,`sifre`,`perm`) VALUES ( ?, ?, ?,  ?, ?, ?)";
+		
+		jdbcTemplate.update(sql,name, surname,identity,tel,sifre,perm);
+		
+		return "redirect:screen5/"+identity+"";
 	}
 	
 	@GetMapping("/checkUser") 
