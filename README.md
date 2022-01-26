@@ -1,6 +1,6 @@
-# spring-boot-insurance-web-app
+# Travel Health Insurance Project
  
-* Travel Health Insurance Project
+## Technologies
 * * Spring Boot
 * * MySQL
 * * HTML/CSS/JS
