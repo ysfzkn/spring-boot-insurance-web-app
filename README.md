@@ -1,2 +1,14 @@
 # spring-boot-insurance-web-app
- Spring Boot Web Project - HTML/CSS/MySQL
+ 
+* Travel Health Insurance Project
+* * Spring Boot
+* * MySQL
+* * HTML/CSS/JS
+* * Hibernate
+* * Java
+
+## Requirements
+* MySQL Database
+* Apache - Maven
+* Java 1.8
+* Apache - Tomcat 
